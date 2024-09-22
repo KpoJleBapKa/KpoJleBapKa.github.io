@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World of Tanks Player Stats</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>World of Tanks Player Stats</h1>
+        <input type="text" id="playerName" placeholder="Enter player name">
+        <button id="searchButton">Search</button>
+    </main>
+
+    <!-- Modal for choosing statistics type -->
+    <div id="chooseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Choose the type of statistics to display:</p>
+            <button id="mainStatsButton">Main Account Stats</button>
+            <button id="battleStatsButton">Battle Efficiency Stats</button>
+            <button id="clanStatsButton">Clan Stats</button>
+        </div>
+    </div>
+
+    <!-- Modal for displaying results -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+
