@@ -54,6 +54,21 @@ The main goal is to create a system for managing university class schedules, ens
    - Created `reassignClassroom(lessonId: number, newClassroomNumber: string): boolean` to change classroom assignments.
    - Implemented `cancelLesson(lessonId: number): void` to remove lessons from the schedule.
 
+9. **Code Quality and Automation**:
+
+   - Integrated ESLint and Prettier for code linting and formatting.
+   - Set up Husky and lint-staged for pre-commit hooks to ensure code quality.
+
+## Info
+
+1. ESLint is a code analysis tool that helps to find and fix problems in JavaScript/TypeScript code. It ensures adherence to code standards and helps avoid errors.
+
+2. Prettier is an automatic code formatting tool. It provides a uniform code style throughout the project, making it easier to read and maintain.
+
+3. Husky allows you to integrate Git hooks into the project. This makes it possible to automatically run scripts before certain Git operations, such as commits or pushes, to ensure code quality.
+
+4. Lint-staged works with Husky to run a linter or other scripts only on changed files, saving time and resources by checking only those files that were changed before the commit.
+
 ## Expected Outcomes
 
 1. All types are correctly defined using type aliases and union types.
@@ -92,4 +107,4 @@ const schedule: Lesson[] = [];`
 
 ## Repository Link
 
-[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/schedule_management_system)
+[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/eslint_and_prettier)
