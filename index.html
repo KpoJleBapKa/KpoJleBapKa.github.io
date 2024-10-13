@@ -1,142 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>University Schedule Management</title>
-    <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
     <header>
-        <h1>University Schedule Management</h1>
+      <h1>University Schedule Management</h1>
     </header>
 
     <section>
-        <form id="professorForm">
-            <h2>Add Professor</h2>
-            <label for="professorName">Name:</label>
-            <input type="text" id="professorName" required>
-            <label for="professorDepartment">Department:</label>
-            <input type="text" id="professorDepartment" required>
-            <button type="submit">Add Professor</button>
-        </form>
+      <form id="professorForm">
+        <h2>Add Professor</h2>
+        <label for="professorName">Name:</label>
+        <input type="text" id="professorName" required />
+        <label for="professorDepartment">Department:</label>
+        <input type="text" id="professorDepartment" required />
+        <button type="submit">Add Professor</button>
+      </form>
     </section>
 
     <section>
-        <form id="courseForm">
-            <h2>Add Course</h2>
-            <label for="courseName">Course Name:</label>
-            <input type="text" id="courseName" required>
-            <label for="courseType">Course Type:</label>
-            <select id="courseType">
-                <option value="Lecture">Lecture</option>
-                <option value="Seminar">Seminar</option>
-                <option value="Lab">Lab</option>
-                <option value="Practice">Practice</option>
-            </select>
-            <button type="submit">Add Course</button>
-        </form>
+      <form id="courseForm">
+        <h2>Add Course</h2>
+        <label for="courseName">Course Name:</label>
+        <input type="text" id="courseName" required />
+        <label for="courseType">Course Type:</label>
+        <select id="courseType">
+          <option value="Lecture">Lecture</option>
+          <option value="Seminar">Seminar</option>
+          <option value="Lab">Lab</option>
+          <option value="Practice">Practice</option>
+        </select>
+        <button type="submit">Add Course</button>
+      </form>
     </section>
 
     <section>
-        <form id="lessonForm">
-            <h2>Add Lesson</h2>
-            <label for="lessonCourseId">Course ID:</label>
-            <input type="number" id="lessonCourseId" required>
-            <label for="lessonProfessorId">Professor ID:</label>
-            <input type="number" id="lessonProfessorId" required>
-            <label for="lessonClassroomNumber">Classroom Number:</label>
-            <input type="text" id="lessonClassroomNumber" required>
-            <label for="lessonDayOfWeek">Day of Week:</label>
-            <select id="lessonDayOfWeek">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-            </select>
-            <label for="lessonTimeSlot">Time Slot:</label>
-            <select id="lessonTimeSlot">
-                <option value="8:30-10:00">8:30-10:00</option>
-                <option value="10:15-11:45">10:15-11:45</option>
-                <option value="12:15-13:45">12:15-13:45</option>
-                <option value="14:00-15:30">14:00-15:30</option>
-                <option value="15:45-17:15">15:45-17:15</option>
-            </select>
-            <button type="submit">Add Lesson</button>
-        </form>
+      <form id="lessonForm">
+        <h2>Add Lesson</h2>
+        <label for="lessonCourseId">Course ID:</label>
+        <input type="number" id="lessonCourseId" required />
+        <label for="lessonProfessorId">Professor ID:</label>
+        <input type="number" id="lessonProfessorId" required />
+        <label for="lessonClassroomNumber">Classroom Number:</label>
+        <input type="text" id="lessonClassroomNumber" required />
+        <label for="lessonDayOfWeek">Day of Week:</label>
+        <select id="lessonDayOfWeek">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+        </select>
+        <label for="lessonTimeSlot">Time Slot:</label>
+        <select id="lessonTimeSlot">
+          <option value="8:30-10:00">8:30-10:00</option>
+          <option value="10:15-11:45">10:15-11:45</option>
+          <option value="12:15-13:45">12:15-13:45</option>
+          <option value="14:00-15:30">14:00-15:30</option>
+          <option value="15:45-17:15">15:45-17:15</option>
+        </select>
+        <button type="submit">Add Lesson</button>
+      </form>
     </section>
 
     <section>
-        <form id="professorScheduleForm">
-            <h2>Professor Schedule</h2>
-            <label for="professorId">Professor ID:</label>
-            <input type="number" id="professorId" required>
-            <button type="submit">Get Schedule</button>
-        </form>
-        <div id="scheduleResult"></div>
+      <form id="professorScheduleForm">
+        <h2>Professor Schedule</h2>
+        <label for="professorId">Professor ID:</label>
+        <input type="number" id="professorId" required />
+        <button type="submit">Get Schedule</button>
+      </form>
+      <div id="scheduleResult"></div>
     </section>
 
     <section>
-        <form id="classroomUtilizationForm">
-            <h2>Classroom Utilization</h2>
-            <button type="submit">Get Utilization</button>
-        </form>
-        <div id="utilizationResult"></div>
+      <form id="classroomUtilizationForm">
+        <h2>Classroom Utilization</h2>
+        <button type="submit">Get Utilization</button>
+      </form>
+      <div id="utilizationResult"></div>
     </section>
 
     <section>
-        <form id="availableClassroomsForm">
-            <h2>Available Classrooms</h2>
-            <label for="availableDayOfWeek">Day of Week:</label>
-            <select id="availableDayOfWeek">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-            </select>
-            <label for="availableTimeSlot">Time Slot:</label>
-            <select id="availableTimeSlot">
-                <option value="8:30-10:00">8:30-10:00</option>
-                <option value="10:15-11:45">10:15-11:45</option>
-                <option value="12:15-13:45">12:15-13:45</option>
-                <option value="14:00-15:30">14:00-15:30</option>
-                <option value="15:45-17:15">15:45-17:15</option>
-            </select>
-            <button type="submit">Find Available Classrooms</button>
-        </form>
-        <div id="availableClassroomsResult"></div>
+      <form id="availableClassroomsForm">
+        <h2>Available Classrooms</h2>
+        <label for="availableDayOfWeek">Day of Week:</label>
+        <select id="availableDayOfWeek">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+        </select>
+        <label for="availableTimeSlot">Time Slot:</label>
+        <select id="availableTimeSlot">
+          <option value="8:30-10:00">8:30-10:00</option>
+          <option value="10:15-11:45">10:15-11:45</option>
+          <option value="12:15-13:45">12:15-13:45</option>
+          <option value="14:00-15:30">14:00-15:30</option>
+          <option value="15:45-17:15">15:45-17:15</option>
+        </select>
+        <button type="submit">Find Available Classrooms</button>
+      </form>
+      <div id="availableClassroomsResult"></div>
     </section>
 
     <section>
-        <form id="popularCourseTypeForm">
-            <h2>Most Popular Course Type</h2>
-            <button type="submit">Get Most Popular Type</button>
-        </form>
-        <div id="popularCourseTypeResult"></div>
+      <form id="popularCourseTypeForm">
+        <h2>Most Popular Course Type</h2>
+        <button type="submit">Get Most Popular Type</button>
+      </form>
+      <div id="popularCourseTypeResult"></div>
     </section>
 
     <!-- Reassign Classroom Form -->
     <form id="reassignClassroomForm">
-        <h3>Reassign Classroom</h3>
-        <label for="reassignLessonId">Lesson ID:</label>
-        <input type="number" id="reassignLessonId" required>
-        <label for="newClassroomNumber">New Classroom Number:</label>
-        <input type="text" id="newClassroomNumber" required>
-        <button type="submit">Reassign</button>
+      <h3>Reassign Classroom</h3>
+      <label for="reassignLessonId">Lesson ID:</label>
+      <input type="number" id="reassignLessonId" required />
+      <label for="newClassroomNumber">New Classroom Number:</label>
+      <input type="text" id="newClassroomNumber" required />
+      <button type="submit">Reassign</button>
     </form>
     <p id="reassignResult"></p>
 
     <!-- Cancel Lesson Form -->
     <form id="cancelLessonForm">
-        <h3>Cancel Lesson</h3>
-        <label for="cancelLessonId">Lesson ID:</label>
-        <input type="number" id="cancelLessonId" required>
-        <button type="submit">Cancel</button>
+      <h3>Cancel Lesson</h3>
+      <label for="cancelLessonId">Lesson ID:</label>
+      <input type="number" id="cancelLessonId" required />
+      <button type="submit">Cancel</button>
     </form>
     <p id="cancelResult"></p>
 
     <script src="scripts/main.js"></script>
-</body>
+  </body>
 </html>
