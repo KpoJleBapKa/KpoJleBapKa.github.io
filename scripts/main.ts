@@ -1,6 +1,6 @@
-import { fetchPlayerId, fetchPlayerStats, fetchClanStats } from '../modules/api/api';
-import { displayMainAccountStats, displayBattleEfficiencyStats, displayClanStats, displayMessage } from '../modules/display/display';
-import { openModal, closeModal, setupCloseModalHandlers } from '../modules/modals/modal';
+import { fetchPlayerId, fetchPlayerStats, fetchClanStats } from './modules/api/api';
+import { displayMainAccountStats, displayBattleEfficiencyStats, displayClanStats, displayMessage } from './modules/display/display';
+import { openModal, closeModal, setupCloseModalHandlers } from './modules/modals/modal';
 
 setupCloseModalHandlers();
 
