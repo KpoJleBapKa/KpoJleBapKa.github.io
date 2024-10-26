@@ -1,4 +1,4 @@
-# TypeScript Web Application with Interactive Features (WotStat)
+# TypeScript Web Application with Interactive Features (WotStat) 
 
 ## Repository Overview
 
@@ -7,13 +7,13 @@ This repository demonstrates the setup and development of a TypeScript-based web
 ## Steps Completed
 
 1. **Branch Creation**:
-    - Created a new branch `feature/tsconfig` from the main branch.
+    - Created a new branch `feature/pr4/modules` from the main branch.
 
 2. **Template Addition**:
-    - The template was written by myself, and added to the `feature/tsconfig` branch.
+    - The template was written by myself, and added to the `feature/pr4/modules` branch.
 
 3. **TypeScript Installation**:
-    - Installed TypeScript in the `feature/tsconfig` branch using the following command:
+    - Installed TypeScript in the `feature/pr4/modules` branch using the following command:
       ```bash
       npm install typescript
       ```
@@ -22,8 +22,8 @@ This repository demonstrates the setup and development of a TypeScript-based web
       npx tsc --init
       ```
 
-4. **Adding JavaScript Interactivity**:
-    - Added JavaScript interactivity to the page including opening modal windows, event listeners for clicks, animations, fetching data from [Wargaming API](https://developers.wargaming.net/applications/84770/), and displaying fetched data.
+4. **Transferring code from branch 'feature/pr2/tsconfig'**:
+    - Transferring all the code and splitting it into modules from the branch feature/pr2/tsconfig
 
 5. **TypeScript Conversion**:
     - Wrote all JavaScript code in a `.ts` file with appropriate type annotations.
@@ -33,13 +33,13 @@ This repository demonstrates the setup and development of a TypeScript-based web
     - Linked the compiled JavaScript file in the HTML template.
 
 7. **Pushing Changes**:
-    - Committed and pushed all changes to the `feature/tsconfig` branch.
+    - Committed and pushed all changes to the `feature/pr4/modules` branch.
 
 8. **GitHub Pages Setup**:
-    - Created GitHub Pages from the `feature/tsconfig` branch to host the site.
+    - Created GitHub Pages from the `feature/pr4/modules` branch to host the site.
 
 9. **Links**:
-    - [Branch](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/tsconfig) 
+    - [Branch](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/pr4/modules) 
     - [Website](https://kpojlebapka.github.io/)
 10. **Interactivity**:
     - Opening modal windows:
@@ -57,7 +57,7 @@ The functions fetchPlayerId, fetchPlayerStats, fetchClanStats are used to get da
 
 ## Repository Link
 
-[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/tsconfig)
+[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/pr4/modules)
 
 ## GitHub Pages Link
 
