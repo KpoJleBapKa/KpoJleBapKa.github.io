@@ -1,19 +1,16 @@
-# TypeScript Web Application with Interactive Features (WotStat) 
+# Development of basic components of an online store using Generic types in TypeScript 
 
 ## Repository Overview
 
-This repository demonstrates the setup and development of a TypeScript-based web application with interactive features. 
+Develop basic functions for managing goods in the online store. The system must be able to work with different types of goods (electronics, clothes).
 
 ## Steps Completed
 
 1. **Branch Creation**:
-    - Created a new branch `feature/pr4/modules` from the main branch.
+    - Created a new branch `feature/pr5/generic` from the main branch.
 
-2. **Template Addition**:
-    - The template was written by myself, and added to the `feature/pr4/modules` branch.
-
-3. **TypeScript Installation**:
-    - Installed TypeScript in the `feature/pr4/modules` branch using the following command:
+2. **TypeScript Installation**:
+    - Installed TypeScript in the `feature/pr5/generic` branch using the following command:
       ```bash
       npm install typescript
       ```
@@ -22,43 +19,34 @@ This repository demonstrates the setup and development of a TypeScript-based web
       npx tsc --init
       ```
 
-4. **Transferring code from branch 'feature/pr2/tsconfig'**:
-    - Transferring all the code and splitting it into modules from the branch feature/pr2/tsconfig
+3. **Creating Product Types**:
+    - Defining a base product type, BaseProduct, which includes essential fields such as id, name, and price. Building on this, we created specific product types like Electronics and Clothing, each extending BaseProduct and adding category-specific fields.
 
-5. **TypeScript Conversion**:
-    - Wrote all JavaScript code in a `.ts` file with appropriate type annotations.
-    - Configured TypeScript to compile the `.ts` file into a `.js` file.
+4. **Creating Product Search Functions**:
+    - Implemented a generic function, findProduct, which takes an array of products and an id to locate a specific product. Also, was developed a filterByPrice function that filters products based on a maximum price, ensuring flexibility across different product types.
 
-6. **HTML Integration**:
-    - Linked the compiled JavaScript file in the HTML template.
+5. **Creating a Shopping Cart**:
+    - For the shopping cart, there was defined a CartItem type that pairs a product with its quantity. Then i wrote functions such as addToCart to add products to the cart and calculateTotal to compute the total cost of items in the cart, maintaining type safety throughout.
 
-7. **Pushing Changes**:
-    - Committed and pushed all changes to the `feature/pr4/modules` branch.
+6. **Using the Functions**:
+    - I've created test data for various product types and demonstrated the functionality of developed functions. This included finding products, adding them to the cart, and calculating the total cost, showcasing the system's ability to handle different product categories.
 
-8. **GitHub Pages Setup**:
-    - Created GitHub Pages from the `feature/pr4/modules` branch to host the site.
+7. **Requirements**:
+    - Type-Safe Functions:
+To ensure type safety, I used TypeScript's powerful type system. By defining specific types like BaseProduct, Electronics, and Clothing, I ensured that each function operates on well-defined data structures. The use of generics, such as in findProduct<T extends BaseProduct>, allows these functions to handle various product types while maintaining strict type constraints. This prevents errors from incorrect data handling and ensures predictable behavior with any valid input.
 
-9. **Links**:
-    - [Branch](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/pr4/modules) 
-    - [Website](https://kpojlebapka.github.io/)
-10. **Interactivity**:
-    - Opening modal windows:
-The opening of modal windows is implemented using the openModal and closeModal functions.
+    - Using Functions Only (No Classes):
+I use functions exclusively for all operations, following a functional programming paradigm. This approach simplifies the code by avoiding the complexities of class-based object-oriented programming. Functions like addToCart and calculateTotal are designed to be pure and reusable, focusing on input-output transformations without maintaining internal state.
 
-    - Event Listeners (such as scroll or click):
-Event handlers for search and stat type selection buttons (searchButton, mainStatsButton, battleStatsButton, clanStatsButton).
-Event handlers for closing modal windows (closeButtons, window.onclick).
+    - Adding Comments to Functions:
+Each function in the project is accompanied by comments explaining its purpose, parameters, and return values. 
 
-    - Animations:
-Animations were implemented using keyframes. Modal windows do not open and close immediately, and the background becomes darker.
+    - Validating Input Data: 
+    Input validation is a crucial part of the project to ensure data integrity and prevent runtime errors. For example, in addToCart, I check if the product exists before adding it to the cart and validate that the quantity is a positive integer. Similarly, findProduct checks if the provided ID matches any product in the list. These checks are essential to handle edge cases gracefully and provide meaningful feedback in case of invalid input.
 
-    - Fetch data and display them:
-The functions fetchPlayerId, fetchPlayerStats, fetchClanStats are used to get data from the API, as well as the functions displayMainAccountStats, displayBattleEfficiencyStats, displayClanStats to display data in the modal window.
+8. **Testing**
+![Alt text](Screenshot_1.png)
 
 ## Repository Link
 
 [GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/pr4/modules)
-
-## GitHub Pages Link
-
-[GitHub Pages Site](https://kpojlebapka.github.io/)

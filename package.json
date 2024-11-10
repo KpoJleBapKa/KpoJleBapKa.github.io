@@ -1,11 +1,11 @@
 {
-  "name": "typescript",
-  "version": "1.0.0",
-  "description": "This repository demonstrates the transition from JavaScript to TypeScript using JSDoc for type annotations. The main objective is to add type safety to a JavaScript codebase without installing TypeScript or changing file extensions.",
-  "main": "index.js",
   "devDependencies": {
     "typescript": "^5.6.3"
   },
+  "name": "kpojlebapka.github.io",
+  "version": "1.0.0",
+  "description": "## Repository Overview",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
