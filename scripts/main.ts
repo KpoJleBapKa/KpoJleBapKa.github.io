@@ -41,7 +41,7 @@ let classrooms: Classroom[] = [];
 let courses: Course[] = [];
 let schedule: Lesson[] = [];
 let lessonIdCounter = 1;
-const totalClassrooms = 20; // загальна кількість аудиторій
+const TOTAL_CLASSROOMS = 20; // загальна кількість аудиторій, константа для magic number
 
 function addProfessor(professor: Professor): void { // додаємо професора до списку
     professors.push(professor);
@@ -89,14 +89,15 @@ function findAvailableClassrooms(timeSlot: TimeSlot, dayOfWeek: DayOfWeek): stri
         lesson => lesson.dayOfWeek === dayOfWeek && lesson.timeSlot === timeSlot
     ).map(lesson => lesson.classroomNumber); // знаходимо зайняті аудиторії
 
-    const allClassrooms = Array.from({ length: totalClassrooms }, (_, i) => `Room ${i + 1}`); // створюємо список всіх аудиторій
+    const allClassrooms = Array.from({ length: TOTAL_CLASSROOMS }, (_, i) => `Room ${i + 1}`); // створюємо список всіх аудиторій
     return allClassrooms.filter(classroom => !usedClassrooms.includes(classroom)); // фільтруємо доступні аудиторії
 }
 
-// обчислюємо відсоток використання аудиторій
-function getClassroomUtilization(): number {
-    const usedClassrooms = new Set(schedule.map(lesson => lesson.classroomNumber)); // збираємо унікальні зайняті аудиторії
-    return (usedClassrooms.size / totalClassrooms) * 100; // обчислюємо відсоток використання
+// обчислюємо відсоток використання аудиторій з урахуванням часових слотів
+function getClassroomUtilization(): number { // покращення getClassroomUtilization для врахування часових слотів
+    const totalSlots = TOTAL_CLASSROOMS * 5 * 5; // 5 днів, 5 слотів на день
+    const usedSlots = schedule.length;
+    return (usedSlots / totalSlots) * 100; // обчислюємо відсоток використання
 }
 
 // перепризначаємо аудиторію для заняття
@@ -147,10 +148,16 @@ function getMostPopularCourseType(): CourseType | null {
 }
 
 // взаємодія з DOM для додавання професора
-document.getElementById('professorForm')?.addEventListener('submit', function(event) { 
+document.getElementById('professorForm')?.addEventListener('submit', function(event) { // валідація форм + обробка помилок при роботі з DOM
     event.preventDefault(); // запобігаємо стандартній поведінці форми
-    const name = (document.getElementById('professorName') as HTMLInputElement).value; // отримуємо значення імені
-    const department = (document.getElementById('professorDepartment') as HTMLInputElement).value; // отримуємо значення кафедри
+    const name = (document.getElementById('professorName') as HTMLInputElement).value.trim(); // отримуємо значення імені
+    const department = (document.getElementById('professorDepartment') as HTMLInputElement).value.trim(); // отримуємо значення кафедри
+
+    if (!name || !department) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
     const newProfessor: Professor = { id: professors.length + 1, name, department }; // створюємо об'єкт професора
     addProfessor(newProfessor); // додаємо професора до списку
     alert(`Professor ${name} added.`); // виводимо повідомлення про успішне додавання
@@ -159,9 +166,15 @@ document.getElementById('professorForm')?.addEventListener('submit', function(ev
 // взаємодія з DOM для додавання курсу
 document.getElementById('courseForm')?.addEventListener('submit', function(event) {
     event.preventDefault(); // запобігаємо стандартній поведінці форми
-    const name = (document.getElementById('courseName') as HTMLInputElement).value; // отримуємо значення назви курсу
+    const name = (document.getElementById('courseName') as HTMLInputElement).value.trim(); // отримуємо значення назви курсу
     const type = (document.getElementById('courseType') as HTMLSelectElement).value as CourseType; // отримуємо значення типу курсу
-    const newCourse: Course = { id: courses.length + 1, name, type }; // отворюємо об'єкт курсу
+
+    if (!name || !type) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    const newCourse: Course = { id: courses.length + 1, name, type }; // створюємо об'єкт курсу
     addCourse(newCourse); // додаємо курс до списку
     alert(`Course ${name} added.`); // виводимо повідомлення про успішне додавання
 });
@@ -174,6 +187,12 @@ document.getElementById('lessonForm')?.addEventListener('submit', function(event
     const classroomNumber = (document.getElementById('lessonClassroomNumber') as HTMLInputElement).value; // отримуємо номер аудиторії
     const dayOfWeek = (document.getElementById('lessonDayOfWeek') as HTMLSelectElement).value as DayOfWeek; // отримуємо день тижня
     const timeSlot = (document.getElementById('lessonTimeSlot') as HTMLSelectElement).value as TimeSlot; // отримуємо часовий проміжок
+
+    if (isNaN(courseId) || isNaN(professorId) || !classroomNumber || !dayOfWeek || !timeSlot) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
     const newLesson: Omit<Lesson, 'id'> = { courseId, professorId, classroomNumber, dayOfWeek, timeSlot }; // створюємо об'єкт заняття
     if (addLesson(newLesson)) {
         alert('Lesson added.'); // виводимо повідомлення про успішне додавання
@@ -186,6 +205,12 @@ document.getElementById('lessonForm')?.addEventListener('submit', function(event
 document.getElementById('professorScheduleForm')?.addEventListener('submit', function(event) {
     event.preventDefault(); // запобігаємо стандартній поведінці форми
     const professorId = parseInt((document.getElementById('professorId') as HTMLInputElement).value); // отримуємо ID професора
+
+    if (isNaN(professorId)) {
+        alert('Please enter a valid professor ID.');
+        return;
+    }
+
     const professorLessons = schedule.filter(lesson => lesson.professorId === professorId); // фільтруємо заняття професора
     document.getElementById('scheduleResult')!.innerText = `Professor's Schedule: ${professorLessons.map(lesson => `Lesson ID: ${lesson.id}, Course ID: ${lesson.courseId}, Classroom: ${lesson.classroomNumber}, Day: ${lesson.dayOfWeek}, Time: ${lesson.timeSlot}`).join('; ')}`; // виводимо розклад
 });
@@ -202,6 +227,12 @@ document.getElementById('availableClassroomsForm')?.addEventListener('submit', f
     event.preventDefault(); // запобігаємо стандартній поведінці форми
     const dayOfWeek = (document.getElementById('availableDayOfWeek') as HTMLSelectElement).value as DayOfWeek; // отримуємо день тижня
     const timeSlot = (document.getElementById('availableTimeSlot') as HTMLSelectElement).value as TimeSlot; // отримуємо часовий проміжок
+
+    if (!dayOfWeek || !timeSlot) {
+        alert('Please select both day and time slot.');
+        return;
+    }
+
     const availableClassrooms = findAvailableClassrooms(timeSlot, dayOfWeek); // знаходимо доступні аудиторії
     document.getElementById('availableClassroomsResult')!.innerText = `Available Classrooms: ${availableClassrooms.join(', ')}`; // виводимо результат
 });
@@ -218,6 +249,11 @@ document.getElementById('reassignClassroomForm')?.addEventListener('submit', fun
     event.preventDefault(); // запобігаємо стандартній поведінці форми
     const lessonId = parseInt((document.getElementById('reassignLessonId') as HTMLInputElement).value); // отримуємо ID заняття
     const newClassroomNumber = (document.getElementById('newClassroomNumber') as HTMLInputElement).value; // отримуємо новий номер аудиторії
+
+    if (isNaN(lessonId) || !newClassroomNumber) {
+        alert('Please fill in all fields.');
+        return;
+    }
     
     if (reassignClassroom(lessonId, newClassroomNumber)) {
         document.getElementById('reassignResult')!.innerText = 'Classroom reassigned successfully.'; // виводимо повідомлення про успіх
@@ -230,7 +266,12 @@ document.getElementById('reassignClassroomForm')?.addEventListener('submit', fun
 document.getElementById('cancelLessonForm')?.addEventListener('submit', function(event) {
     event.preventDefault(); // запобігаємо стандартній поведінці форми
     const lessonId = parseInt((document.getElementById('cancelLessonId') as HTMLInputElement).value); // отримуємо ID заняття
-    
+
+    if (isNaN(lessonId)) {
+        alert('Please enter a valid lesson ID.');
+        return;
+    }
+
     cancelLesson(lessonId); // видаляємо заняття
     document.getElementById('cancelResult')!.innerText = 'Lesson cancelled successfully.'; // виводимо повідомлення про успіх
 });
