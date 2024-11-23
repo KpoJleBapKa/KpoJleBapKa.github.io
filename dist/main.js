@@ -1,6 +1,6 @@
-import { articleValidator } from './validation/ArticleValidator';
-import { productValidator } from './validation/ProductValidator';
-import { CompositeValidator } from './validation/CompositeValidator';
+import { articleValidator } from './validation/ArticleValidator.js';
+import { productValidator } from './validation/ProductValidator.js';
+import { CompositeValidator } from './validation/CompositeValidator.js';
 const newArticle = {
     id: '1',
     title: 'Basic C++',
