@@ -1,4 +1,4 @@
-# Development of basic components of an online store using Generic types in TypeScript 
+# Development of a content management system with a type-safe architecture
 
 ## Repository Overview
 
