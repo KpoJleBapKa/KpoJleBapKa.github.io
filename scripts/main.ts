@@ -1,78 +1,265 @@
-import { Article } from './models/Article';
-import { Product } from './models/Product';
-import { articleValidator } from './validation/ArticleValidator';
-import { productValidator } from './validation/ProductValidator';
-import { CompositeValidator } from './validation/CompositeValidator';
-import { ContentOperations } from './interfaces/ContentOperations';
-import { Versioned } from './versioning/Versioned';
-
-const newArticle: Article = { // створення статті
-  id: '1',
-  title: 'Basic C++',
-  content: 'An introduction to C++.',
-  author: 'Michael Dawson',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  status: 'draft'
-};
-
-const articleValidationResult = articleValidator.validate(newArticle); // валідація статті
-if (articleValidationResult.isValid) {
-  console.log('Article is valid.');
-} else {
-  console.error('Article validation errors:', articleValidationResult.errors);
+// enum для статусу студента
+enum StudentStatus {
+  Active = "Active",
+  Academic_Leave = "Academic Leave",
+  Graduated = "Graduated",
+  Expelled = "Expelled"
 }
 
-const newProduct: Product = { // створення продукту
-  id: '1',
-  name: 'Beginning C++ Through Game Programming',
-  description: 'A book about C++.',
-  price: 39.99,
-  stock: 100,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  status: 'published'
-};
-
-const productValidationResult = productValidator.validate(newProduct); // валідація продукту
-if (productValidationResult.isValid) {
-  console.log('Product is valid.');
-} else {
-  console.error('Product validation errors:', productValidationResult.errors);
+// enum для типу курсу
+enum CourseType {
+  Mandatory = "Mandatory",
+  Optional = "Optional",
+  Special = "Special"
 }
 
-const articleCompositeValidator = new CompositeValidator<Article>([articleValidator]); // використання CompositeValidator для статей
-const articleCompositeValidationResult = articleCompositeValidator.validate(newArticle);
-if (articleCompositeValidationResult.isValid) {
-  console.log('Composite validation for article passed.');
-} else {
-  console.error('Composite validation errors for article:', articleCompositeValidationResult.errors);
+// enum для семестру навчання
+enum Semester {
+  First = "First",
+  Second = "Second"
 }
 
-const productCompositeValidator = new CompositeValidator<Product>([productValidator]); // використання CompositeValidator для продуктів
-const productCompositeValidationResult = productCompositeValidator.validate(newProduct);
-if (productCompositeValidationResult.isValid) {
-  console.log('Composite validation for product passed.');
-} else {
-  console.error('Composite validation errors for product:', productCompositeValidationResult.errors);
+// enum для оцінок
+enum GradeValue {
+  Excellent = 5,
+  Good = 4,
+  Satisfactory = 3,
+  Unsatisfactory = 2
 }
 
-const articleOperations: ContentOperations<Article> = { // операцій з контентом
-  create: (content) => content,
-  read: (id) => (id === newArticle.id ? newArticle : null),
-  update: (id, content) => ({ ...newArticle, ...content }),
-  delete: (id) => console.log(`Article with id ${id} deleted.`),
-};
+// enum для факультетів університету
+enum Faculty {
+  Computer_Science = "Computer Science",
+  Economics = "Economics",
+  Law = "Law",
+  Engineering = "Engineering"
+}
 
-const versionedArticle: Versioned<Article> = { // використання версіонування
-  ...newArticle,
-  version: 1,
-  changeLog: [],
-  incrementVersion() {
-    this.version += 1;
-    this.changeLog.push(`Version updated to ${this.version}`);
+// інтерфейс для студента
+interface Student {
+  id: number;
+  fullName: string;
+  faculty: Faculty;
+  year: number;
+  status: StudentStatus;
+  enrollmentDate: Date;
+  groupNumber: string;
+}
+
+// інтерфейс для курсу
+interface Course {
+  id: number;
+  name: string;
+  type: CourseType;
+  credits: number;
+  semester: Semester;
+  faculty: Faculty;
+  maxStudents: number;
+  enrolledStudents: number;
+}
+
+// інтерфейс для оцінки
+interface Grade {
+  studentId: number;
+  courseId: number;
+  grade: GradeValue;
+  date: Date;
+  semester: Semester;
+}
+
+// клас для управління університетом
+class UniversityManagementSystem {
+  private students: Student[] = [];
+  private courses: Course[] = [];
+  private grades: Grade[] = [];
+  private studentIdCounter: number = 1;
+  private courseIdCounter: number = 1;
+
+  // метод для зарахування студента
+  enrollStudent(student: Omit<Student, "id">): Student {
+      const newStudent: Student = { ...student, id: this.studentIdCounter++ };
+      this.students.push(newStudent);
+      return newStudent;
   }
-};
 
-versionedArticle.incrementVersion(); // інкремент версії
-console.log('Versioned Article:', versionedArticle);
+  // метод для додавання курсу
+  addCourse(course: Omit<Course, "id" | "enrolledStudents">): Course {
+      const newCourse: Course = { ...course, id: this.courseIdCounter++, enrolledStudents: 0 };
+      this.courses.push(newCourse);
+      return newCourse;
+  }
+
+  // метод для реєстрації студента на курс
+  registerForCourse(studentId: number, courseId: number): void {
+      const student = this.students.find(s => s.id === studentId);
+      const course = this.courses.find(c => c.id === courseId);
+
+      if (!student || !course) {
+          throw new Error("Student or Course not found");
+      }
+
+      if (student.faculty !== course.faculty) {
+          throw new Error("Student and course faculties do not match");
+      }
+
+      if (course.enrolledStudents >= course.maxStudents) {
+          throw new Error("Course is full");
+      }
+
+      course.enrolledStudents++;
+  }
+
+  // метод для перевірки, чи студент зареєстрований на курс
+  private isStudentRegisteredForCourse(studentId: number, courseId: number): boolean {
+      const student = this.students.find(s => s.id === studentId);
+      const course = this.courses.find(c => c.id === courseId);
+
+      // перевірка, чи студент і курс існують
+      if (!student || !course) {
+          return false;
+      }
+
+      // повертаємо true, якщо студент зареєстрований на курс
+      return student.faculty === course.faculty && course.enrolledStudents > 0;
+  }
+
+  // метод для встановлення оцінки
+  setGrade(studentId: number, courseId: number, grade: GradeValue): void {
+      const student = this.students.find(s => s.id === studentId);
+      const course = this.courses.find(c => c.id === courseId);
+
+      if (!student || !course) {
+          throw new Error("Student or Course not found");
+      }
+
+      if (!this.isStudentRegisteredForCourse(studentId, courseId)) {
+          throw new Error("Student is not registered for this course");
+      }
+
+      const gradeEntry: Grade = {
+          studentId,
+          courseId,
+          grade,
+          date: new Date(),
+          semester: Semester.First 
+      };
+      this.grades.push(gradeEntry);
+  }
+
+  // метод для оновлення статусу студента
+  updateStudentStatus(studentId: number, newStatus: StudentStatus): void {
+      const student = this.students.find(s => s.id === studentId);
+      if (!student) {
+          throw new Error("Student not found");
+      }
+
+      if (newStatus === StudentStatus.Graduated && student.status !== StudentStatus.Active) {
+          throw new Error("Only active students can be graduated");
+      }
+
+      student.status = newStatus;
+  }
+
+  // метод для отримання студентів за факультетом
+  getStudentsByFaculty(faculty: Faculty): Student[] {
+      return this.students.filter(s => s.faculty === faculty);
+  }
+
+  // метод для отримання оцінок студента
+  getStudentGrades(studentId: number): Grade[] {
+      return this.grades.filter(g => g.studentId === studentId);
+  }
+
+  // метод для отримання доступних курсів
+  getAvailableCourses(faculty: Faculty, semester: Semester): Course[] {
+      return this.courses.filter(c => c.faculty === faculty && c.semester === semester);
+  }
+
+  // метод для обчислення середньої оцінки студента
+  calculateAverageGrade(studentId: number): number {
+      const studentGrades = this.getStudentGrades(studentId);
+      if (studentGrades.length === 0) return 0;
+      const total = studentGrades.reduce((acc, g) => acc + g.grade, 0);
+      return total / studentGrades.length;
+  }
+
+  // метод для отримання списку відмінників по факультету
+  getHonorStudents(faculty: Faculty): Student[] {
+      return this.students.filter(student => {
+          const averageGrade = this.calculateAverageGrade(student.id);
+          return student.faculty === faculty && averageGrade >= 4.5;
+      });
+  }
+}
+
+// ТЕСТУВАННЯ
+
+const university = new UniversityManagementSystem();
+
+// додавання курсів
+const course1 = university.addCourse({
+  name: "Основи програмування C++",
+  type: CourseType.Mandatory,
+  credits: 5,
+  semester: Semester.First,
+  faculty: Faculty.Computer_Science,
+  maxStudents: 30
+});
+
+const course2 = university.addCourse({
+  name: "Вища математика",
+  type: CourseType.Mandatory,
+  credits: 4,
+  semester: Semester.First,
+  faculty: Faculty.Economics,
+  maxStudents: 25
+});
+
+// реєстрація студентів
+const student1 = university.enrollStudent({
+  fullName: "Валерій Жмишенко",
+  faculty: Faculty.Computer_Science,
+  year: 2024,
+  status: StudentStatus.Active,
+  enrollmentDate: new Date("2021-09-01"),
+  groupNumber: "ПТС-44"
+});
+
+const student2 = university.enrollStudent({
+  fullName: "Іван Золочевський",
+  faculty: Faculty.Economics,
+  year: 2024,
+  status: StudentStatus.Active,
+  enrollmentDate: new Date("2021-09-01"),
+  groupNumber: "БОБ-45"
+});
+
+// реєстрація студентів на курси
+university.registerForCourse(student1.id, course1.id);
+university.registerForCourse(student2.id, course2.id);
+
+// встановлення оцінок
+university.setGrade(student1.id, course1.id, GradeValue.Excellent);
+university.setGrade(student2.id, course2.id, GradeValue.Satisfactory);
+
+// отримання середньої оцінки
+const averageGradeStudent1 = university.calculateAverageGrade(student1.id);
+console.log(`Середня оцінка студента ${student1.fullName}: ${averageGradeStudent1}`);
+
+const averageGradeStudent2 = university.calculateAverageGrade(student2.id);
+console.log(`Середня оцінка студента ${student2.fullName}: ${averageGradeStudent2}`);
+
+// отримання списку відмінників по факультету
+const honorStudentsCS = university.getHonorStudents(Faculty.Computer_Science);
+console.log("Відмінники факультету комп'ютерних наук:", honorStudentsCS.map(s => s.fullName));
+
+const honorStudentsECO = university.getHonorStudents(Faculty.Economics);
+console.log("Відмінники факультету економіки:", honorStudentsECO.map(s => s.fullName));
+
+// оновлення статусу студента
+university.updateStudentStatus(student1.id, StudentStatus.Graduated);
+console.log(`Статус студента ${student1.fullName} оновлено на: ${student1.status}`);
+
+// список студентів за факультетом
+const csStudents = university.getStudentsByFaculty(Faculty.Computer_Science);
+console.log("Студенти факультету комп'ютерних наук:", csStudents.map(s => s.fullName));

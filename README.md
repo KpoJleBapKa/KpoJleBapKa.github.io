@@ -1,16 +1,16 @@
-# Development of a content management system with a type-safe architecture
+# Development of a University Management System with Type-Safe Architecture
 
 ## Repository Overview
 
-Design a type system for a content management platform (CMS) using advanced TypeScript features. The project focuses on creating a type-safe architecture to manage various content types, access control, validation, and versioning.
+This project focuses on developing a type-safe architecture for a University Management System using advanced TypeScript features. The system is designed to manage student registrations, course enrollments, grading, and faculty management, ensuring robust validation and error handling.
 
 ## Steps Completed
 
 1. **Branch Creation**:
-    - Created a new branch `feature/lb5/cms` from the `feature/pr5/generic` branch.
+    - Created a new branch `feature/pr7/enum` from the `feature/lb5/cms` branch.
 
 2. **TypeScript Installation**:
-    - Installed TypeScript in the `feature/lb5/cms` branch using the following command:
+    - Installed TypeScript in the `feature/pr7/enum` branch using the following command:
       ```bash
       npm install typescript
       ```
@@ -19,34 +19,66 @@ Design a type system for a content management platform (CMS) using advanced Type
       npx tsc --init
       ```
 
-3. **Creating Content Types**:
-   - Defined a base content type, `BaseContent`, which includes essential fields such as `id`, `createdAt`, `updatedAt`, `publishedAt` and `status`. Building on this, specific content types like `Article` and `Product` were created, each extending `BaseContent` and adding type-specific fields.
+3. **Defining Enums**:
+   - Introduced `enum` types to represent various states and roles within the system, such as `StudentStatus`, `CourseStatus`, `Semester`, `Grade` and `Faculty`. This enhances type safety and readability throughout the codebase.
 
-4. **Creating Content Operations**:
-   - Implemented generic operations using `ContentOperations<T extends BaseContent>`, which handle various actions like creating, updating, and deleting content. This ensures flexibility across different content types.
+4. **Implementing Registration Logic**:
+   - Developed methods for student registration and course enrollment, including checks for student status and faculty compatibility. This ensures that only eligible students can enroll in courses.
 
-5. **Developing Access Control**:
-   - Defined a `Role` and `Permission` system to manage access. Created functions to assign roles and check permissions, ensuring secure and appropriate access control for different content types.
+5. **Grading System**:
+   - Implemented a grading system with validation to ensure that grades can only be assigned to students who are registered in the corresponding course. This prevents errors related to grade assignments.
 
-6. **Using the Functions**:
-   - Created test data for various content types and demonstrated the functionality of developed operations. This included creating and managing content, showcasing the system's ability to handle different content categories securely.
+6. **Honor Roll Calculation**:
+   - Created a method to retrieve a list of honor students based on their average grades within a specific faculty. This functionality allows for easy identification of high-achieving students.
 
 7. **Requirements**:
-   - **Type-Safe Functions**:
-     To ensure type safety, TypeScript's powerful type system was utilized. By defining specific types like `BaseContent`, `Article`, and `Product`, each function operates on well-defined data structures. The use of generics, such as in `ContentOperations<T extends BaseContent>`, allows these functions to handle various content types while maintaining strict type constraints. This prevents errors from incorrect data handling and ensures predictable behavior with any valid input.
+   1. **Check for Course Registration Eligibility**:
+      - Implemented in the `registerForCourse` method, which checks:
+        - If the student and course exist.
+        - If the student's faculty matches the course's faculty.
+        - If the maximum number of students in the course has not been exceeded.
 
-   - **Using Functions Only (No Classes)**:
-     Functions are used exclusively for all operations, following a functional programming paradigm. This approach simplifies the code by avoiding the complexities of class-based object-oriented programming. Functions are designed to be pure and reusable, focusing on input-output transformations without maintaining internal state.
+      ```typescript
+      if (student.faculty !== course.faculty) {
+          throw new Error("Student and course faculties do not match");
+      }
 
-   - **Adding Comments to Functions**:
-     Each function in the project is accompanied by comments explaining its purpose, parameters, and return values.
+      if (course.enrolledStudents >= course.maxStudents) {
+          throw new Error("Course is full");
+      }
+      ```
 
-   - **Validating Input Data**:
-     Input validation is crucial to ensure data integrity and prevent runtime errors. For example, validation functions check if required fields are present and if values meet expected formats. These checks handle edge cases gracefully and provide meaningful feedback in case of invalid input.
+   2. **Validation When Changing Student Status**:
+      - Implemented in the `updateStudentStatus` method, which checks that only active students can be graduated.
+
+      ```typescript
+      if (newStatus === StudentStatus.Graduated && student.status !== StudentStatus.Active) {
+          throw new Error("Only active students can be graduated");
+      }
+      ```
+
+   3. **Check for Grade Assignment Eligibility**:
+      - Implemented in the `setGrade` method, where before assigning a grade, it checks if the student is registered for the course using the `isStudentRegisteredForCourse` method.
+
+      ```typescript
+      if (!this.isStudentRegisteredForCourse(studentId, courseId)) {
+          throw new Error("Student is not registered for this course");
+      }
+      ```
+
+   4. **Method for Retrieving Honor Students by Faculty**:
+      - Implemented in the `getHonorStudents` method, which returns a list of students with an average grade of 4.5 or higher for the specified faculty.
+
+      ```typescript
+      return this.students.filter(student => {
+          const averageGrade = this.calculateAverageGrade(student.id);
+          return student.faculty === faculty && averageGrade >= 4.5;
+      });
+      ```
 
 8. **Testing**
-![Alt text](Screenshot_1.png)
+![Alt text](Screenshot_1.jpg)
 
 ## Repository Link
 
-[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/lb5/cms)
+[GitHub Repository Link](https://github.com/KpoJleBapKa/kpojlebapka.github.io/tree/feature/pr7/enum)
