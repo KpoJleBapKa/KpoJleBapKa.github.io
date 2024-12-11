@@ -1,38 +1,216 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World of Tanks Player Stats</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <main>
-        <h1>World of Tanks Player Stats</h1>
-        <input type="text" id="playerName" placeholder="Enter player name">
-        <button id="searchButton">Search</button>
-    </main>
-
-    <!-- Modal for choosing statistics type -->
-    <div id="chooseModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Choose the type of statistics to display:</p>
-            <button id="mainStatsButton">Main Account Stats</button>
-            <button id="battleStatsButton">Battle Efficiency Stats</button>
-            <button id="clanStatsButton">Clan Stats</button>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   CV 
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+ </head>
+ <body class="bg-gray-100">
+  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg mt-10 p-6">
+   <div class="flex">
+    <div class="w-1/4 bg-teal-700 text-white p-4 rounded-l-lg">
+     <div class="flex flex-col items-center">
+      <img alt="Profile picture" class="rounded-full mb-4" height="250" src="Arsen.jpeg" width="250"/>
+      <h2 class="text-xl font-bold">
+       Skills
+      </h2>
+      <div class="mt-4 w-full">
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          English
+         </span>
+         <span>
+          9
+         </span>
         </div>
-    </div>
-
-    <!-- Modal for displaying results -->
-    <div id="resultModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="results"></div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 90%;">
+         </div>
         </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          Git &amp; GitHub
+         </span>
+         <span>
+          8
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 80%;">
+         </div>
+        </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          C++
+         </span>
+         <span>
+          5
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 50%;">
+         </div>
+        </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          Unreal Engine 5
+         </span>
+         <span>
+          3
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 30%;">
+         </div>
+        </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          Python
+         </span>
+         <span>
+          7
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 70%;">
+         </div>
+        </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          Java
+         </span>
+         <span>
+          6
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 60%;">
+         </div>
+        </div>
+       </div>
+       <div class="mb-4">
+        <div class="flex justify-between">
+         <span>
+          HTML &amp; CSS &amp; JS &amp; TS
+         </span>
+         <span>
+          7
+         </span>
+        </div>
+        <div class="bg-gray-300 h-2 rounded-full">
+         <div class="bg-yellow-500 h-2 rounded-full" style="width: 70%;">
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
     </div>
-
-    <script src="dist/scripts/main.js"></script>
-</body>
+    <div class="w-3/4 p-4">
+     <h1 class="text-3xl font-bold text-teal-700">
+      Arsen Solovian
+     </h1>
+     <h2 class="text-xl text-gray-700">
+      C++/UE5 Developer
+     </h2>
+     <div class="mt-4">
+      <div class="flex items-center mb-2">
+       <i class="fas fa-phone mr-2">
+       </i>
+       <span>
+        +380994638827
+       </span>
+      </div>
+      <div class="flex items-center mb-2">
+       <i class="fas fa-map-marker-alt mr-2">
+       </i>
+       <span>
+        Kyiv, Kyiv City
+       </span>
+      </div>
+      <div class="flex items-center mb-2">
+       <i class="fas fa-envelope mr-2">
+       </i>
+       <span>
+        toadkillergamer@gmail.com
+       </span>
+      </div>
+      <div class="flex items-center mb-2">
+       <i class="fab fa-github mr-2">
+       </i>
+       <a class="text-blue-500" href="https://github.com/KpoJleBapKa">
+        https://github.com/KpoJleBapKa
+       </a>
+      </div>
+      <div class="flex items-center mb-2">
+       <i class="fab fa-linkedin mr-2">
+       </i>
+       <a class="text-blue-500" href="https://www.linkedin.com/in/arsen-solovian-330a7832a/">
+        https://www.linkedin.com/in/arsen-solovian-330a7832a/
+       </a>
+      </div>
+     </div>
+     <div class="mt-6">
+      <h2 class="text-2xl font-bold text-teal-700">
+       Summary
+      </h2>
+      <p class="mt-2 text-gray-700">
+       I am passionate about game development, particularly on Unreal Engine (C++). In addition to UE, I have experience with Unity (C#) and have developed my own game, Racer on the Storm.
+      </p>
+      <p class="mt-2 text-gray-700">
+       I enjoy solving specific problems to enhance user experience. My solutions are discord bots (Python), web applications (JavaScript), mobile applications (Java/Kotlin), and desktop applications (C++).
+      </p>
+      <p class="mt-2 text-gray-700">
+       I have several successful projects actively used by users: StatFinder World of Tanks (mobile application), WotStat BOT (discord bot), Activity BOT (discord bot)
+      </p>
+      <p class="mt-2 text-gray-700">
+       Beyond programming, I am passionate about the computer industry, hardware components, and building/tinkering with PCs.
+      </p>
+      <p class="mt-2 text-gray-700">
+       Currently learning Unreal Engine 5, C++, and related technologies such as CMake and Qt.
+      </p>
+     </div>
+     <div class="mt-6">
+      <h2 class="text-2xl font-bold text-teal-700">
+       Education
+      </h2>
+      <div class="mt-2">
+       <h3 class="text-xl font-semibold">
+        State University of Information and Communication Technologies
+       </h3>
+       <p class="text-gray-700">
+        01.09.2021 - 01.07.2025
+       </p>
+       <p class="text-gray-700">
+        121 software engineering, Bachelor
+       </p>
+       <p class="text-gray-700">
+        Award from the leadership of the Solomyian district of Kyiv.
+        <a class="text-blue-500" href="https://duikt.edu.ua/ua/news-1-1009-11827-vitaemo-studenta-kafedri-inzhenerii-programnogo-zabezpechennya-z-nagorodoyu-vid-kerivnictva-solomyanskogo-rayonu-m-kieva_kafedra-inzhenerii-programnogo-zabezpechennya">
+         link
+        </a>
+       </p>
+       <p class="text-gray-700">
+        Recognized as the best student in the group six times and the best in the intake twice.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
 </html>
-
